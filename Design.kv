@@ -1,0 +1,476 @@
+#: import NoTransition kivy.uix.screenmanager.NoTransition
+
+WindowManager:
+    transition:NoTransition()
+    canvas:
+        Color:
+            rgba: 1,0,0,1
+        Rectangle:
+            size:0.6*self.width,self.height
+        Color:
+            rgba:1,1,1,1
+        Rectangle:
+            size:0.4*self.width,self.height
+            pos:0.6*self.width,0
+    Login:
+    Guest:
+    Employee:
+    Admin:
+
+<Login>:
+    name:'login'
+    username:username
+    password:password
+    Image:
+        source:'imgs\\sale.png'
+        size_hint:0.5,0.8
+        pos_hint:{'x':0.05,'y':0.1}
+    Image:
+        source:'imgs\\logo1.png'
+        allow_strech:True
+        size_hint:0.2,0.35
+        pos_hint:{'x':0.7,'y':-0.01}
+    Image:
+        source:'imgs\\name.png'
+        allow_strech:True
+        size_hint:0.3,0.2
+        pos_hint:{'x':0.65,'y':0.7}
+    Label:
+        text:'Username'
+        color:1,0,0,1
+        center_x:self.width*0.69
+        center_y:self.height*0.68
+    TextInput:
+        id:username
+        text:'RoomNo/EmpID/Admin'
+        pos_hint:{'x':0.65,'y':0.58}
+        multiline:False
+        font_size:14
+        size_hint:0.3,0.06
+        background_color: 1, 0, 0, 1
+        on_touch_down: if self.collide_point(*args[1].pos): self.text = ""
+    Label:
+        text:'Password'
+        font_size:14
+        color:1,0,0,1
+        center_x:self.width*0.69
+        center_y:self.height*0.54
+    TextInput:
+        id:password
+        password:True
+        text:'RoomNo/EmpID/Admin'
+        pos_hint:{'x':0.65,'y':0.44}
+        multiline:False
+        font_size:14
+        size_hint:0.3,0.06
+        background_color: 1, 0, 0, 1
+        on_touch_down: if self.collide_point(*args[1].pos): self.text = ""
+    Button:
+        background_normal: "imgs\\siN.png"
+        background_down: "imgs\\siD.png"
+        size_hint:0.15,0.1
+        pos_hint:{'x':0.72,'y':0.32}
+        on_release:
+            root.verify()
+            if root.Type is not None:app.root.current=root.Type
+
+<Guest>:
+    history:history
+    name:'guest'
+    Image:
+        source:'imgs\\order.gif'
+        size_hint:0.5,0.8
+        pos_hint:{'x':0.05,'y':0.1}
+    Button:
+        text:'Order Now'
+        size_hint:0.1,0.06
+        color:1,0,0,1
+        background_color:0,0,1,1
+        pos_hint:{'x':0.26,'y':0.2}
+        on_release:root.order()
+    Button:
+        background_normal: "imgs\\settings1.png"
+        background_down: "imgs\\settings.png"
+        size_hint:0.08,0.13
+        pos_hint:{'x':0.93,'y':0.89}
+        on_release:root.settings()
+    Image:
+        source:'imgs\\welcome.jpg'
+        allow_strech:True
+        size_hint:0.4,0.2
+        pos_hint:{'x':0.6,'y':0.75}
+    TextInput:
+        id:history
+        multiline:True
+        text:'Order History'
+        size_hint:(0.3,0.5)
+        pos_hint:{'x':0.65,'y':0.15}
+        background_color:1,1,1,1
+        color:1,0,0,1
+        readonly:True
+        halign:'center'
+        font_size:18
+        opacity:0
+    Button:
+        background_normal: "imgs\\sON.png"
+        background_down: "imgs\\sOD.png"
+        size_hint:0.15,0.1
+        pos_hint:{'x':0.74,'y':0.05}
+        on_release:app.root.current='login'
+    Button:
+        background_normal:"imgs\\his.jpg"
+        background_down:"imgs\\his.jpg"
+        size_hint:0.1,0.12
+        pos_hint:{'x':0.85,'y':0.65}
+        on_release:root.show_history()
+<Employee>:
+    name:'emp'
+    search:search
+    result:result
+    Image:
+        source:"imgs\\empbg.jpg"
+        size_hint:0.6,1
+        pos_hint:{'x':0,'top':1}
+    Image:
+        source:"imgs\\cin.png"
+        allow_strech:True
+        size_hint:0.6,1
+        pos_hint:{'x':0,'top':1}
+    Button:
+        background_normal: "imgs\\cinN.png"
+        background_down: "imgs\\cinD.png"
+        size_hint:0.25,0.13
+        pos_hint:{'x':0.05,'y':0.8}
+        on_release:root.checkin()
+    Button:
+        background_normal: "imgs\\coutN.png"
+        background_down: "imgs\\coutD.png"
+        size_hint:0.25,0.13
+        pos_hint:{'x':0.3,'y':0.1}
+        on_release:root.checkout()
+    Button:
+        background_normal: "imgs\\settings1.png"
+        background_down: "imgs\\settings.png"
+        size_hint:0.08,0.13
+        pos_hint:{'x':0.93,'y':0.89}
+        on_release:root.settings()
+    Button:
+        background_normal: "imgs\\sON.png"
+        background_down: "imgs\\sOD.png"
+        size_hint:0.15,0.1
+        pos_hint:{'x':0.74,'y':0.05}
+        on_release:app.root.current='login'
+    TextInput:
+        id:result
+        multiline:True
+        text:''
+        size_hint:(0.3,0.5)
+        pos_hint:{'x':0.65,'y':0.15}
+        background_color:1,1,1,1
+        color:1,0,0,1
+        readonly:True
+        halign:'center'
+    TextInput:
+        id:search
+        text:'RoomNo/Name'
+        pos_hint:{'x':0.65,'y':0.66}
+        multiline:False
+        font_size:11
+        size_hint:0.25,0.05
+        background_color: 1, 1, 1, 1
+        on_touch_down: if self.collide_point(*args[1].pos): self.text = ""
+    Button:
+        background_normal: "imgs\\search.png"
+        background_down: "imgs\\search1.png"
+        size_hint:0.08,0.1
+        pos_hint:{'x':0.88,'y':0.64}
+        on_release:root.Search()
+    Image:
+        source:'imgs\\emp.png'
+        allow_strech:True
+        size_hint:0.4,0.2
+        pos_hint:{'x':0.6,'y':0.8}
+
+<Admin>:
+    name:'admin'
+    search:search
+    result:result
+    Image:
+        source:"imgs\\admin.png"
+        size_hint:0.5,0.9
+        pos_hint:{'x':0.05,'y':0.05}
+    Button:
+        background_normal: "imgs\\settings1.png"
+        background_down: "imgs\\settings.png"
+        size_hint:0.08,0.13
+        pos_hint:{'x':0.93,'y':0.89}
+        on_release:root.settings()
+    Button:
+        background_normal: "imgs\\info.png"
+        background_down: "imgs\\info1.png"
+        size_hint:0.08,0.13
+        pos_hint:{'x':0.6,'y':0.89}
+        on_release:root.info()
+    Button:
+        background_normal: "imgs\\sON.png"
+        background_down: "imgs\\sOD.png"
+        size_hint:0.15,0.1
+        pos_hint:{'x':0.74,'y':0.05}
+        on_release:app.root.current='login'
+    Label:
+        bold:True
+        text:'KASER9'
+        color:1,0,0,1
+        font_size:24
+        halign:'center'
+        center_x:self.width*0.8
+        center_y:self.height*0.77
+    TextInput:
+        id:result
+        multiline:True
+        text:''
+        size_hint:(0.3,0.5)
+        pos_hint:{'x':0.65,'y':0.15}
+        background_color:1,1,1,1
+        color:1,0,0,1
+        readonly:True
+        halign:'center'
+    TextInput:
+        id:search
+        text:'RoomNo/Name/EmpId'
+        pos_hint:{'x':0.65,'y':0.66}
+        multiline:False
+        font_size:11
+        size_hint:0.25,0.05
+        background_color: 1, 1, 1, 1
+        on_touch_down: if self.collide_point(*args[1].pos): self.text = ""
+    Button:
+        background_normal: "imgs\\search.png"
+        background_down: "imgs\\search1.png"
+        size_hint:0.08,0.1
+        pos_hint:{'x':0.88,'y':0.64}
+        on_release:root.Search()
+    Image:
+        source:'imgs\\adminbg.png'
+        allow_strech:True
+        size_hint:0.4,0.2
+        pos_hint:{'x':0.6,'y':0.8}
+    Button:
+        background_normal:'imgs\\hireN.png'
+        background_down:'imgs\\hireD.png'
+        size_hint:0.25,0.13
+        pos_hint:{'x':0.05,'y':0.8}
+        on_release:root.hire()
+    Button:
+        background_normal:'imgs\\fireN.png'
+        background_down:'imgs\\fireD.png'
+        size_hint:0.25,0.13
+        pos_hint:{'x':0.3,'y':0.1}
+        on_release:root.fire()
+    Button:
+        text:'view logs'
+        size_hint:0.1,0.05
+        pos_hint:{'x':0.76,'y':0.15}
+        on_release:root.view_logs()
+
+<Settings>:
+    pwd:pwd
+    size_hint:(None,None)
+    size:250,200
+    title:'Settings'
+    FloatLayout:
+        Label:
+            text:'Change your password'
+            size_hint:1,0.24
+            pos_hint:{'x':0,'y':0.76}
+        Label:
+            text:root.user.current
+            size_hint:1,0.24
+            pos_hint:{'x':0,'y':0.51}
+        TextInput:
+            id:pwd
+            text:'pwd'
+            multiline:False
+            password:True
+            size_hint:1,0.24
+            pos_hint:{'x':0,'y':0.25}
+            on_touch_down: if self.collide_point(*args[1].pos): self.text = ""
+        Button:
+            text:'Submit'
+            size_hint:0.5,0.24
+            pos_hint:{'x':0.25,'y':0}
+            on_release:
+                root.submit()
+                root.dismiss()
+
+<Order>:
+    ic:ic
+    drinks:drinks
+    size_hint:(None,None)
+    size:250,200
+    title:'Order Here!!!'
+    FloatLayout:
+        Label:
+            text:'Id'
+            size_hint:0.5,0.24
+            pos_hint:{'x':0,'y':0.76}
+        Label:
+            text:root.user.current
+            size_hint:0.49,0.24
+            pos_hint:{'x':0.51,'y':0.76}
+        Label:
+            text:'Ice Creams($0.3)'
+            size_hint:0.84,0.24
+            pos_hint:{'x':0,'y':0.51}
+        TextInput:
+            id:ic
+            text:'0'
+            multiline:False
+            size_hint:0.15,0.24
+            pos_hint:{'x':0.85,'y':0.51}
+            on_touch_down: if self.collide_point(*args[1].pos): self.text = ""
+        Label:
+            text:'Cold Drinks($0.5)'
+            size_hint:0.84,0.24
+            pos_hint:{'x':0,'y':0.25}
+        TextInput:
+            id:drinks
+            text:'0'
+            multiline:False
+            size_hint:0.15,0.24
+            pos_hint:{'x':0.85,'y':0.25}
+            on_touch_down: if self.collide_point(*args[1].pos): self.text = ""
+        Button:
+            text:'Submit'
+            size_hint:0.5,0.24
+            pos_hint:{'x':0.25,'y':0}
+            on_release:
+                root.submit()
+                root.dismiss()
+
+<Checkin>:
+    name:name
+    avail:avail
+    size_hint:(None,None)
+    size:250,200
+    title:'Checkin'
+    FloatLayout:
+        Label:
+            text:'Available room'
+            size_hint:1,0.24
+            pos_hint:{'x':0,'y':0.76}
+        TextInput:
+            id:avail
+            text:root.room
+            size_hint:1,0.24
+            pos_hint:{'x':0,'y':0.51}
+        TextInput:
+            id:name
+            text:'Name'
+            multiline:False
+            size_hint:1,0.24
+            pos_hint:{'x':0,'y':0.25}
+            on_touch_down: if self.collide_point(*args[1].pos): self.text = ""
+        Button:
+            text:'Submit'
+            size_hint:0.5,0.24
+            pos_hint:{'x':0.25,'y':0}
+            on_release:
+                root.submit()
+                root.dismiss()
+
+<Checkout>:
+    room:room
+    name:name
+    size_hint:(None,None)
+    size:250,200
+    title:'Checkout'
+    FloatLayout:
+        Label:
+            text:'Enter Details'
+            size_hint:1,0.24
+            pos_hint:{'x':0,'y':0.76}
+        TextInput:
+            id:room
+            text:'Room'
+            size_hint:1,0.24
+            pos_hint:{'x':0,'y':0.51}
+            on_touch_down: if self.collide_point(*args[1].pos): self.text = ""
+        TextInput:
+            id:name
+            text:'Name'
+            multiline:False
+            size_hint:1,0.24
+            pos_hint:{'x':0,'y':0.25}
+            on_touch_down: if self.collide_point(*args[1].pos): self.text = ""
+        Button:
+            text:'Submit'
+            size_hint:0.5,0.24
+            pos_hint:{'x':0.25,'y':0}
+            on_release:
+                root.submit()
+                root.dismiss()
+
+<Hire>:
+    eid:eid
+    name:name
+    size_hint:(None,None)
+    size:250,200
+    title:'Hire'
+    FloatLayout:
+        Label:
+            text:'Enter Details'
+            size_hint:1,0.24
+            pos_hint:{'x':0,'y':0.76}
+        TextInput:
+            id:eid
+            text:'EID'
+            size_hint:1,0.24
+            pos_hint:{'x':0,'y':0.51}
+            on_touch_down: if self.collide_point(*args[1].pos): self.text = ""
+        TextInput:
+            id:name
+            text:'Name'
+            multiline:False
+            size_hint:1,0.24
+            pos_hint:{'x':0,'y':0.25}
+            on_touch_down: if self.collide_point(*args[1].pos): self.text = ""
+        Button:
+            text:'Submit'
+            size_hint:0.5,0.24
+            pos_hint:{'x':0.25,'y':0}
+            on_release:
+                root.submit()
+                root.dismiss()
+
+<Fire>:
+    eid:eid
+    name:name
+    size_hint:(None,None)
+    size:250,200
+    title:'Fire'
+    FloatLayout:
+        Label:
+            text:'Enter Details'
+            size_hint:1,0.24
+            pos_hint:{'x':0,'y':0.76}
+        TextInput:
+            id:eid
+            text:'EID'
+            size_hint:1,0.24
+            pos_hint:{'x':0,'y':0.51}
+            on_touch_down: if self.collide_point(*args[1].pos): self.text = ""
+        TextInput:
+            id:name
+            text:'Name'
+            multiline:False
+            size_hint:1,0.24
+            pos_hint:{'x':0,'y':0.25}
+            on_touch_down: if self.collide_point(*args[1].pos): self.text = ""
+        Button:
+            text:'Submit'
+            size_hint:0.5,0.24
+            pos_hint:{'x':0.25,'y':0}
+            on_release:
+                root.submit()
+                root.dismiss()
